@@ -3,7 +3,7 @@ from faissmodel import LocalRAGSystemFAISS  # Assuming you move the above class 
 
 st.set_page_config(page_title="IIT Mandi Chatbot", layout="wide")
 
-st.title("🎓 Ask about IIT Mandi or JOSAA Counselling")
+st.title("🎓 Ask about IIT Mandi")
 
 
 
