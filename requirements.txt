@@ -3,5 +3,6 @@ langchain
 faiss-cpu
 sentence-transformers
 langchain-google-genai
+langchain-community
 python-dotenv
 protobuf<4
