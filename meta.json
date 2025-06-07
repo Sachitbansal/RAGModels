@@ -3759,6 +3759,34 @@
         {
             "text_preview": "[07/06/25, 2:41:03\u202fAM] Utkarsh Ranjan: \u200eUtkarsh Ranjan joined from the community\n[07/06/25, 2:43:06\u202fAM] Utkarsh Ranjan: \u200eUtkarsh Ranjan left\n[07/06/25, 4:10:33\u202fAM] ~\u202fHansraj Gurjar: \u200e~\u202fHansraj Gurjar left",
             "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "Overview : \nGeneral Engineering is a first-of-its-kind degree in India, offered exclusively at IIT Mandi. This branch is ideal for students who are undecided about their career path and wish to explore various engineering domains before making a choice. In the first two years, the program promotes interdisciplinary learning, allowing students to delve into mechanical topics (mechanics, fluid dynamics, thermodynamics), electrical topics (semiconductor electronics, digital systems, signal processing), and software fields (data science, machine learning, deep learning).\nStudents graduate with a B.Tech in General Engineering with Specialisation in [ABC], where ABC refers to one of the available specialisations: Robotics & AI, Mechatronics, Finance Management, or Communications. These begin in the third year and include focused coursework in the chosen area.",
+            "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "An additional option, called Open Specialisation, allows students to study from a set of electives across various domains. However, this combination must not replicate 40% or more of the core courses of any existing branch. Students opting for this route will receive the degree B.Tech in General Engineering (without a named specialisation).",
+            "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "Description of specializations : \n1. Robotics & AI : This specialisation combines engineering fundamentals with artificial intelligence, machine learning and embedded systems. It prepares students to design and control intelligent systems, with applications in robotics, autonomous vehicles, and human-robot interaction.\nTop careers: Robotics Engineer, Computer Vision Engineer, Embedded AI Engineer, Autonomous Systems Engineer, Research Scientist (AI & Robotics)\n2. Mechatronics : Mechatronics integrates mechanical design, electronics, and intelligent control systems to create smart and automated products. It is especially relevant in industries such as manufacturing, aerospace, consumer electronics, and automotive.\nTop careers: Automation Engineer, Aerospace Engineer, Product Design Engineer, Automotive Systems Engineer, Electric Vehicle Engineer",
+            "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "3. Communications : Communication Engineering is the foundation of modern connectivity, spanning mobile networks, the internet, satellites, and IoT. Students study signal processing, modulation techniques, and wireless technologies like 5G and IoT.\nTop careers: Network Engineer, Telecom Engineer, Signal Processing Engineer, Control Systems Engineer, Researcher (Communication Systems)\n4. Finance Management : This unique specialisation blends finance with data science, programming, and mathematical modeling. It focuses on using analytics and technology to tackle challenges in banking, investments, and fintech.\nTop careers: Quantitative Analyst, Data Scientist, Quant Trader, Algorithmic Developer, Product Manager (Fintech), Risk Manager.",
+            "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "5. Open specialisation : Students choosing this option can tailor their academic journey based on personal interests, selecting electives from multiple disciplines. It's well-suited for those inclined toward entrepreneurship, interdisciplinary roles, or competitive exams. Career paths are diverse and can include roles in software, design and manufacturing, research, tech startups, and more.\nTop careers: Software Developer, Tech Generalist, Design Engineer, Researcher, Entrepreneur",
+            "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "Placement data : \nSince the first batch of General Engineering students has not yet graduated, official placement data is not available. Placement eligibility varies by company. However, students who build strong skills and maintain a well-crafted resume are likely to receive attractive job offers, especially given the program's interdisciplinary nature and flexibility.",
+            "source": "fold/common.txt"
+        },
+        {
+            "text_preview": "Future plan : \nThe program intends to expand its horizons through the introduction of new, forward-thinking specialisations. Proposed areas include Film, Design, Administration, Sustainability Engineering, Quantum Engineering, Indian Knowledge System, and Innovation & Entrepreneurship \u2014 reflecting the institute\u2019s commitment to interdisciplinary and socially relevant education. Additionally, the program aims to strengthen its industry interface through collaborations with leading partners like Dassault Syst\u00e8mes, Bentley, and GlobalLogic. Cross-institutional exposure is also being promoted, with AIIMS Bilaspur serving as a visiting college, particularly in the domain of biomedical devices.",
+            "source": "fold/common.txt"
         }
     ]
 }
