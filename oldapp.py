@@ -1,13 +1,11 @@
 import streamlit as st
-from memoryModel import LocalRAGSystemFAISS  # Assuming you move the above class to local_rag.py
+from faissmodel import LocalRAGSystemFAISS  # Assuming you move the above class to local_rag.py
 
 st.set_page_config(page_title="IIT Mandi Chatbot", layout="wide")
 
 st.title("🎓 Ask about IIT Mandi")
 
-# Initialize chat history in session_state if not already present
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+
 
 if "rag_system" not in st.session_state:
     st.session_state.rag_system = LocalRAGSystemFAISS()
@@ -16,12 +14,9 @@ if "rag_system" not in st.session_state:
         meta_path="meta.json",
         file_path="fold/common.txt"
     )
-    
     prompt = """
         You are a helpful assistant that can answer questions about IIT Mandi and JOSAA counselling
         based on the provided context from a chat transcript.
-        
-        This is the previous chat history: {history}
 
         Answer the following question: {question}
         By searching the following chat transcript context: {docs}
@@ -41,18 +36,12 @@ if "rag_system" not in st.session_state:
         """  # Paste the full custom prompt
     st.session_state.rag_system.setup_qa_chain_with_prompt(prompt)
 
-user_question = st.chat_input("Ask something about IIT Mandi:")
+user_question = st.text_input("Ask your question:")
 
 if user_question:
     with st.spinner("Thinking..."):
         answer, sources = st.session_state.rag_system.get_response_from_query(user_question)
-    # Save interaction to session
-    st.session_state.chat_history.append({"user": user_question, "bot": answer})
-    
-    # Show it
-    st.chat_message("user").markdown(user_question)
-    st.chat_message("assistant").markdown(answer)
-    
+    st.markdown(f"**Answer:** {answer}")
     with st.expander("🔍 Sources Used"):
         for i, doc in enumerate(sources):
             st.markdown(f"**{i+1}.** {doc['text_preview'][:300]}...")  # Truncate for brevity

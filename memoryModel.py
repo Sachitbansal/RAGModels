@@ -1,8 +1,9 @@
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAI
+from langchain.memory import ConversationBufferMemory
 from langchain import PromptTemplate
-from langchain.chains import LLMChain
+from langchain.chains import LLMChain  
 from dotenv import load_dotenv
 import os
 import faiss
@@ -31,16 +32,13 @@ class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
 
         texts = [doc.page_content for doc in docs]
         
-        print("Generating embeddings with SentenceTransformer...")
         embeddings = self.embedding_model.encode(texts).astype('float32')
 
         dimension = embeddings.shape[1]
         faiss_index = faiss.IndexFlatL2(dimension) # Using L2 (Euclidean) distance for similarity
         faiss_index.add(embeddings)
-        print(f"FAISS index created with {faiss_index.ntotal} vectors.")
 
         faiss.write_index(faiss_index, faiss_index_path)
-        print(f"FAISS index saved to {faiss_index_path}")
 
         # Prepare metadata (list of dictionaries, each with 'text_preview' and potentially other info)
         metadata_list = [{"text_preview": text, "source": doc.metadata.get('source', 'N/A')} for text, doc in zip(texts, docs)]
@@ -65,11 +63,24 @@ class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
             raise ValueError("FAISS index or metadata not loaded. Please call `load_faiss_index_and_metadata` first.")
 
         prompt = PromptTemplate(
-            input_variables=["question", "docs"],
+            input_variables=["question", "docs", "history"],
             template=custom_prompt_template,
         )
+        
+        # 💡 Setup conversation memory
+        memory = ConversationBufferMemory(
+            memory_key="history",
+            input_key="question",
+            return_messages=True
+        )
 
-        self.qa_chain = LLMChain(llm=self.llm, prompt=prompt)
+        # 👇 Replace LLMChain with ConversationChain using memory
+        self.qa_chain = LLMChain(
+            llm=self.llm,
+            prompt=prompt,
+            memory=memory,
+            verbose=False
+        )
 
     def get_response_from_query(self, query: str, k: int = 12) -> tuple[str, list]:
 
@@ -124,6 +135,8 @@ if __name__ == "__main__":
     custom_whatsapp_prompt_template = """
     You are a helpful assistant that can answer questions about IIT Mandi and JOSAA counselling
     based on the provided context from a chat transcript.
+    
+    This is the previous chat history: {history}
 
     Answer the following question: {question}
     By searching the following chat transcript context: {docs}
