@@ -13,14 +13,7 @@ load_dotenv() # Load environment variables, including your GOOGLE_API_KEY
 
 class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
     def __init__(self, llm_model_name: str = "gemini-2.5-flash-preview-04-17"):
-        """
-        Initializes the RAG system with SentenceTransformer for embeddings (for FAISS),
-        FAISS for vector search, and Google Generative AI (Gemini Flash) for the LLM.
-        
-        Args:
-            llm_model_name: The name of the Google Generative AI LLM model to use.
-                            Defaults to "gemini-2.5-flash-preview-04-17".
-        """
+       
         self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2") # SentenceTransformer for FAISS
         self.llm = GoogleGenerativeAI(model=llm_model_name)
         self.faiss_index = None # Will hold the FAISS index
@@ -28,10 +21,7 @@ class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
         self.qa_chain = None
 
     def _create_and_save_faiss_index(self, file_path: str, faiss_index_path: str, meta_path: str, chunk_size: int = 1000, chunk_overlap: int = 100):
-        """
-        Helper function to create embeddings, build a FAISS index, and save the index and metadata.
-        This runs if the FAISS index or metadata files aren't found.
-        """
+
         print(f"Creating FAISS index and metadata from: {file_path}")
         loader = TextLoader(file_path, encoding="utf-8")
         raw_documents = loader.load()
@@ -61,15 +51,7 @@ class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
         return faiss_index, {"chunks": metadata_list}
 
     def load_faiss_index_and_metadata(self, faiss_index_path: str = "faiss_index.idx", meta_path: str = "meta.json", file_path: str = "fold/common.txt"):
-        """
-        Loads the pre-existing FAISS index and metadata. If files don't exist,
-        it will attempt to create them from the provided text file.
-        
-        Args:
-            faiss_index_path: Path to the saved FAISS index file.
-            meta_path: Path to the saved JSON metadata file.
-            file_path: Path to the original text file, used if index/meta need creation.
-        """
+    
         if not os.path.exists(faiss_index_path) or not os.path.exists(meta_path):
             print("FAISS index or metadata not found. Creating them now...")
             self.faiss_index, self.metadata = self._create_and_save_faiss_index(file_path, faiss_index_path, meta_path)
@@ -82,14 +64,7 @@ class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
             print("FAISS index and metadata loaded successfully.")
 
     def setup_qa_chain_with_prompt(self, custom_prompt_template: str):
-        """
-        Configures the LLMChain with your specified prompt template. This chain will take
-        the user's question and retrieved documents to generate an answer.
-        
-        Args:
-            custom_prompt_template: The string template for the prompt.
-                                   It *must* contain '{question}' and '{docs}' placeholders.
-        """
+
         if self.faiss_index is None or self.metadata is None:
             raise ValueError("FAISS index or metadata not loaded. Please call `load_faiss_index_and_metadata` first.")
 
@@ -101,19 +76,8 @@ class LocalRAGSystemFAISS: # Changed class name to reflect FAISS
         self.qa_chain = LLMChain(llm=self.llm, prompt=prompt)
         print("QA chain setup complete with custom prompt.")
 
-    def get_response_from_query(self, query: str, k: int = 4) -> tuple[str, list]:
-        """
-        Retrieves the most similar documents using FAISS and uses them as context
-        for the LLM to answer the user's question.
-        
-        Args:
-            query: The question you want to ask your RAG system.
-            k: The number of top relevant documents to retrieve from FAISS.
-        Returns:
-            A tuple containing:
-            - The LLM's generated answer (as a string).
-            - A list of the source document dictionaries (from metadata) that were used for context.
-        """
+    def get_response_from_query(self, query: str, k: int = 12) -> tuple[str, list]:
+
         if self.faiss_index is None or self.metadata is None:
             raise ValueError("FAISS index or metadata not loaded. Please call `load_faiss_index_and_metadata` first.")
         if self.qa_chain is None:

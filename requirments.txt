@@ -1,6 +1,7 @@
-python-dotenv
-langchain
-openai
-youtube-transcript-api
-faiss-cpu
 streamlit
+langchain
+faiss-cpu
+sentence-transformers
+langchain-google-genai
+python-dotenv
+protobuf<4
